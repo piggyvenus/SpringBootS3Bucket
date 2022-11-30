@@ -25,4 +25,9 @@ public class BucketController {
     public String deleteFile(@RequestPart(value = "url") String fileUrl) {
         return this.amazonClient.deleteFileFromS3Bucket(fileUrl);
     }
+
+    @GetMapping("/listBuckets")
+    public String listBuckets(@RequestPart(value = "odf") String odf) {
+        return this.amazonClient.listBuckets(odf);
+    }
 }
