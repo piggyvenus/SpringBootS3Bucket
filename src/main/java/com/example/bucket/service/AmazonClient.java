@@ -55,15 +55,7 @@ public class AmazonClient {
     private void initializeAmazon() {
 
         AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
-        //this.s3client = new AmazonS3Client(credentials);
-        /*
-        this.s3client = AmazonS3ClientBuilder.standard()
-                    .withCredentials(
-                            new AWSStaticCredentialsProvider(credentials))
-                    .withEndpointConfiguration(
-                            new AwsClientBuilder.EndpointConfiguration("https://s3-openshift-storage.apps.cluster-x2ckn.x2ckn.sandbox400.opentlc.com", this.regionName))
-                    .build();
-         */
+
         this.s3client = AmazonS3ClientBuilder.standard()
                     .withCredentials(
                             new AWSStaticCredentialsProvider(credentials))
@@ -115,19 +107,13 @@ public class AmazonClient {
             s3.setS3ClientOptions(options);
             s3.setEndpoint("s3-openshift-storage.apps.cluster-x2ckn.x2ckn.sandbox400.opentlc.com");
 
-            //String newobjfile = "/Users/shannachan/projects/s3/image002.png";
-            System.out.println("step 1...");
+
             PutObjectRequest request = new PutObjectRequest(this.bucketName, fileName, file);
-            System.out.println("step 2...");
             ObjectMetadata metadata = new ObjectMetadata();
             metadata.setContentType("text/plain;charset=UTF-8");
-            System.out.println("step 3...");
             metadata.addUserMetadata("title", "someTitle");
-            System.out.println("step 4...");
             request.setMetadata(metadata);
-            System.out.println("step 5...");
             s3.putObject(request);
-            System.out.println("step 6...");
 
         }catch (AmazonServiceException e) {
             // The call was transmitted successfully, but Amazon S3 couldn't process
